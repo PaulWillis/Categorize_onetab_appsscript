@@ -1,0 +1,38 @@
+function Categorize() {
+  
+  Logger.clear();
+  Logger.log("Starting");
+  var app = SpreadsheetApp;
+  var ss = app.getActiveSpreadsheet();
+  var activeSheet = ss.getActiveSheet();
+ 
+  var foundtext = activeSheet.getRange("A1").getValue();
+
+  for(var i=1350;i<2665;i++) {
+    var foundtext = activeSheet.getRange(1+i,1).getValue();
+    if(foundtext.toLowerCase().indexOf("programming") > -1
+       || foundtext.toLowerCase().indexOf("learning") > -1
+       || foundtext.toLowerCase().indexOf("courses") > -1
+     ){
+      activeSheet.getRange(1+i,2).setValue("Learning");
+      activeSheet.getRange(1+i,2).setBackgroundColor('lightgray');
+      
+    } else{
+      activeSheet.getRange(1+i,2).setValue(" ");
+    }
+    
+    activeSheet.getRange(1+i,3).setValue("insert into #t values ('" +foundtext.replace("'", "").replace("'", "") +"')");
+    
+ }
+
+  
+   //youtube channel fetch
+   var part ='snippet,contentDetails,statistics';  
+   var params ={'id': 'UC_x5XG1OV2P6uZZ5FSM9Ttw'}   
+   var response = YouTube.Channels.list(part, params);   
+   Logger.log(response);
+  
+        
+  
+  
+}
